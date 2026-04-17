@@ -1,28 +1,15 @@
 #include <stdio.h>
 
-int main()
-{
-    int n, i;
-    int S = 0;
+int main() {
+    int n;
+    long long S;
 
     printf("Nhap so nguyen duong n: ");
     scanf("%d", &n);
 
-    if (n > 0)
-    {
-        for (i = 1; i <= n; i++)
-        {
-            S += i;
-        }
+    S = n * (n + 1) / 2;
 
-        printf("Tong S = %d\n", S);
-    }
-    else
-    {
-        printf("Vui long nhap so nguyen duong!\n");
-    }
+    printf("Tong S = %lld", S);
 
     return 0;
 }
-// Created by khoa2 on 4/16/2026.
-//
