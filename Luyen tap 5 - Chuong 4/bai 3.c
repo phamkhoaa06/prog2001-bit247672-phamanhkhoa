@@ -27,7 +27,7 @@ int main() {
     printf("Nhap c: ");
     scanf("%d", &c);
 
-    printf("Gia tri lon nhat = %d\n", timMax(a, b, c));
+    printf("Gia tri lon nhat = %d\n", max3(a, b, c));
 
     return 0;
 }
