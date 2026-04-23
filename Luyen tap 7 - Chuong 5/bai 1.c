@@ -25,5 +25,4 @@ int main() {
 
     return 0;
 }
-// Created by khoa2 on 4/20/2026.
-//
+

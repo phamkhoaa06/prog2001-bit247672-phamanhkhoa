@@ -3,27 +3,22 @@
 
 int main() {
     char str[100];
+    int i, len;
 
-    // Nhap chuoi
     printf("Nhap chuoi: ");
     fgets(str, sizeof(str), stdin);
 
-    // Xoa ky tu xuong dong
+    // Xóa ký tự xuống dòng nếu có
     str[strcspn(str, "\n")] = '\0';
 
-    int len = strlen(str);
+    len = strlen(str);
 
-    // Dao chuoi
-    for (int i = 0; i < len / 2; i++) {
-        char temp = str[i];
-        str[i] = str[len - 1 - i];
-        str[len - 1 - i] = temp;
+    printf("Chuoi dao nguoc: ");
+    for (i = len - 1; i >= 0; i--) {
+        printf("%c", str[i]);
     }
-
-    // In ket qua
-    printf("Chuoi sau khi dao: %s\n", str);
 
     return 0;
 }
-// Created by khoa2 on 4/20/2026.
-//
+
+
