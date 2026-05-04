@@ -1,42 +1,71 @@
 #include <stdio.h>
 #include <string.h>
 
-struct Product {
+#define MAX 100
+
+// 1. Khai báo struct
+typedef struct {
     char name[50];
     float price;
-};
+} Product;
+
+// Hàm ghi mảng struct vào file
+void writeToFile(const char* filename, Product arr[], int n) {
+    FILE *f = fopen(filename, "wb");
+    if (f == NULL) {
+        printf("Khong mo duoc file!\n");
+        return;
+    }
+
+    fwrite(&n, sizeof(int), 1, f);          // ghi số lượng phần tử
+    fwrite(arr, sizeof(Product), n, f);     // ghi mảng struct
+
+    fclose(f);
+}
+
+// Hàm đọc mảng struct từ file
+int readFromFile(const char* filename, Product arr[]) {
+    FILE *f = fopen(filename, "rb");
+    if (f == NULL) {
+        printf("Khong mo duoc file!\n");
+        return 0;
+    }
+
+    int n;
+    fread(&n, sizeof(int), 1, f);          // đọc số lượng
+    fread(arr, sizeof(Product), n, f);     // đọc mảng
+
+    fclose(f);
+    return n;
+}
+
+// Hàm hiển thị
+void printProducts(Product arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("Product %d: Name = %s, Price = %.2f\n",
+        i + 1, arr[i].name, arr[i].price);
+    }
+}
 
 int main() {
-    FILE *f;
-    struct Product p1[3], p2[3];
-    int i;
+    Product list[MAX] = {
+        {"Apple", 10.5},
+{"Banana", 5.2},
+{"Orange", 7.8}
+    };
 
-    // Gán dữ liệu
-    strcpy(p1[0].name, "Laptop");
-    p1[0].price = 1500.5;
+    int n = 3;
 
-    strcpy(p1[1].name, "Mouse");
-    p1[1].price = 200.0;
+    // 2. Ghi file
+    writeToFile("products.dat", list, n);
 
-    strcpy(p1[2].name, "Keyboard");
-    p1[2].price = 500.0;
+    // 3. Đọc lại
+    Product newList[MAX];
+    int newN = readFromFile("products.dat", newList);
 
-    // Ghi mảng struct
-    f = fopen("product.dat", "wb");
-    fwrite(p1, sizeof(struct Product), 3, f);
-    fclose(f);
-
-    // Đọc lại
-    f = fopen("product.dat", "rb");
-    fread(p2, sizeof(struct Product), 3, f);
-    fclose(f);
-
-    // In kết quả
-    for (i = 0; i < 3; i++) {
-        printf("%s - %.2f\n", p2[i].name, p2[i].price);
-    }
+    // 4. In ra kiểm tra
+    printf("Du lieu doc tu file:\n");
+    printProducts(newList, newN);
 
     return 0;
 }
-// Created by khoa2 on 4/23/2026.
-//

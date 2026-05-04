@@ -1,28 +1,40 @@
 #include <stdio.h>
 
 int main() {
+    // Mảng ban đầu
+    int arr[] = {10, 20, 30, 40, 50};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    // Mảng dùng để đọc lại
+    int arr_read[5];
+
     FILE *f;
-    int a[5] = {10, 20, 30, 40, 50};
-    int b[5];
-    int i;
 
-    // Ghi mảng
-    f = fopen("array.dat", "wb");
-    fwrite(a, sizeof(int), 5, f);
+    // 1. Ghi mảng vào file
+    f = fopen("array.bin", "wb");
+    if (f == NULL) {
+        printf("Khong mo duoc file!\n");
+        return 1;
+    }
+
+    fwrite(arr, sizeof(int), n, f);
     fclose(f);
 
-    // Đọc mảng
-    f = fopen("array.dat", "rb");
-    fread(b, sizeof(int), 5, f);
+    // 2. Đọc mảng từ file
+    f = fopen("array.bin", "rb");
+    if (f == NULL) {
+        printf("Khong mo duoc file!\n");
+        return 1;
+    }
+
+    fread(arr_read, sizeof(int), n, f);
     fclose(f);
 
-    // In kết quả
-    printf("Mang doc ra:\n");
-    for (i = 0; i < 5; i++) {
-        printf("%d ", b[i]);
+    // 3. In ra để kiểm tra
+    printf("Mang da doc tu file:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr_read[i]);
     }
 
     return 0;
 }
-// Created by khoa2 on 4/23/2026.
-//
