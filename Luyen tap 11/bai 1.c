@@ -3,7 +3,7 @@
 int main() {
     float diem;
 
-    printf("Nhap diem (0 - 10): ");
+    printf("Nhap diem (0 <= diem <= 10): ");
     scanf("%f", &diem);
 
     if (diem < 0 || diem > 10) {
